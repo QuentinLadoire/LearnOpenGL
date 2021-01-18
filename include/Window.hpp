@@ -1,24 +1,32 @@
 #pragma once
 
+enum class WindowMode
+{
+	Windowed,
+	Fullscreen,
+	Borderless
+};
+
 class Window
 {
 	public:
-	bool Init();
-	void Destroy();
+	static void Init(int width, int height, const char* title);
+	static void Destroy();
 
-	void PoolEvents();
+	static void PoolEvents();
 
-	void Clear();
-	void Display();
+	static void Clear();
+	static void Display();
 
-	void SetClearColor(float r, float g, float b);
+	static void SetClearColor(float r, float g, float b);
+	static void SetWindowMode();
 
-	bool IsOpen();
-	void Close();
-	bool IsNull();
+	static bool IsNull();
+	static bool IsOpen();
+	static void Close();
 
 	private:
-	struct GLFWwindow * window;
+	struct GLFWwindow* glfwWindow;
 	struct Color
 	{
 		float r = 0.0f;
@@ -26,4 +34,7 @@ class Window
 		float b = 0.0f;
 	};
 	Color color;
+
+	private:
+	static Window instance;
 };

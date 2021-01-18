@@ -11,34 +11,45 @@ void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-bool Window::Init()
+void InitGLFW()
 {
-	window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
-	if (window == nullptr)
-	{
-		std::cout << "Failed to Create GLFW window" << std::endl;
+	if (!glfwInit())
+		throw std::runtime_error{ "Failed to Initialize GLFW" };
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		return false;
-	}
-
-	glfwMakeContextCurrent(window);
-	
-	//GLAD Initialization
+#if __APPLE__
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+}
+void GladLoadProcAddress()
+{
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
+		throw std::runtime_error{ "Failed to initialize GLAD" };
+}
 
-		return 1;
-	}
-	//------------------
+void Window::Init(int width, int height, const char* title)
+{
+	InitGLFW();
+
+	instance.glfwWindow = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+	if (instance.glfwWindow == nullptr)
+		throw std::runtime_error{ "Failed to Create GLFW Window" };
+
+	glfwMakeContextCurrent(instance.glfwWindow);
+	GladLoadProcAddress();
 
 	glViewport(0, 0, 800, 600);
-	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
+	glfwSetFramebufferSizeCallback(instance.glfwWindow, FramebufferSizeCallback);
 }
 void Window::Destroy()
 {
-	if (window != nullptr)
-		glfwDestroyWindow(window);
+	if (instance.glfwWindow != nullptr)
+	{
+		glfwDestroyWindow(instance.glfwWindow);
+		glfwTerminate();
+	}
 }
 
 void Window::PoolEvents()
@@ -48,30 +59,36 @@ void Window::PoolEvents()
 
 void Window::Clear()
 {
-	glClearColor(color.r, color.g, color.b, 1.0f);
+	glClearColor(instance.color.r, instance.color.g, instance.color.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 void Window::Display()
 {
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(instance.glfwWindow);
 }
 
 void Window::SetClearColor(float r, float g, float b)
 {
-	color.r = r;
-	color.g = g;
-	color.b = b;
+	instance.color.r = r;
+	instance.color.g = g;
+	instance.color.b = b;
+}
+void Window::SetWindowMode()
+{
+	
 }
 
+bool Window::IsNull()
+{
+	return instance.glfwWindow == nullptr;
+}
 bool Window::IsOpen()
 {
-	return window != nullptr || !glfwWindowShouldClose(window);
+	return !IsNull() && !glfwWindowShouldClose(instance.glfwWindow);
 }
 void Window::Close()
 {
-	glfwSetWindowShouldClose(window, true);
+	glfwSetWindowShouldClose(instance.glfwWindow, true);
 }
-bool Window::IsNull()
-{
-	return window == nullptr;
-}
+
+Window Window::instance = Window();

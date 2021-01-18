@@ -6,39 +6,22 @@
 
 #include "Window.hpp"
 
-void ProcessInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-}
-
 int main()
 {
-	//GLFW Initialzation
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#if __APPLE__
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-	//------------------
+	Window::Init(800, 600, "LearnOpenGL");
 
-	Window window;
-	if (window.Init())
-		return 1;
-	
-	while (window.IsOpen())
+	while (Window::IsOpen())
 	{
-		window.PoolEvents();
+		Window::PoolEvents();
+
+		Window::Clear();
 		
-		window.Clear();
-		window.Display();
+		//rendering here
+
+		Window::Display();
 	}
 
-	window.Destroy();
-
-	glfwTerminate();
+	Window::Destroy();
 
 	return 0;
 }
