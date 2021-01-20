@@ -18,9 +18,15 @@
     <ClCompile Include="..\src\Window.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Shader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Window.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Shader.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
