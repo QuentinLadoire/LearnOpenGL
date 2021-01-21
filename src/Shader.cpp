@@ -35,7 +35,7 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
 	}
 	catch (std::ifstream::failure e)
 	{
-		std::cout << "ERROR - Shader : File not succesfully read" << std::endl;
+		std::cout << "ERROR - Shader : File not succesfully read" << std::endl << "Shader Path : " << vertexPath << std::endl << "              " << fragmentPath << std::endl;
 	}
 
 	const char* vertexCode = vertexString.c_str();
@@ -83,6 +83,10 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
 	glDeleteShader(vertexId);
 	glDeleteShader(fragmentId);
 }
+Shader::~Shader()
+{
+	glDeleteProgram(id);
+}
 
 void Shader::Use()
 {
@@ -100,4 +104,9 @@ void Shader::SetInt(const std::string& name, int value) const
 void Shader::SetFloat(const std::string& name, float value) const
 {
 	glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+}
+
+const unsigned int Shader::GetId() const
+{
+	return id;
 }

@@ -130,7 +130,7 @@ static const int GLFWKey[static_cast<int>(KeyCode::KeyCount)]
 	GLFW_KEY_MENU,
 };
 
-void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
+void FramebufferSizeCallback(GLFWwindow*, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
@@ -157,14 +157,14 @@ void Window::Init(int width, int height, const char* title)
 {
 	InitGLFW();
 
-	instance.glfwWindow = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+	instance.glfwWindow = glfwCreateWindow(width, height, title, NULL, NULL);
 	if (instance.glfwWindow == nullptr)
 		throw std::runtime_error{ "Failed to Create GLFW Window" };
 
 	glfwMakeContextCurrent(instance.glfwWindow);
 	GladLoadProcAddress();
 
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, width, height);
 	glfwSetFramebufferSizeCallback(instance.glfwWindow, FramebufferSizeCallback);
 }
 void Window::Destroy()

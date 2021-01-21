@@ -21,6 +21,9 @@
     <ClCompile Include="..\src\Shader.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\std_image.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Window.hpp">

@@ -151,7 +151,7 @@ class Window
 	static void Close();
 
 	private:
-	struct GLFWwindow* glfwWindow;
+	struct GLFWwindow* glfwWindow = nullptr;
 	struct Color
 	{
 		float r = 0.0f;
