@@ -8,6 +8,10 @@
 #include "Window.hpp"
 #include "Shader.hpp"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 int main()
 {
 	Window::Init(600, 600, "LearnOpenGL");
@@ -113,6 +117,12 @@ int main()
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		if (Window::IsKeyPress(KeyCode::W))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+		glm::mat4 trans = glm::mat4(1.0f);
+		trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		unsigned int transformLoc = glGetUniformLocation(shader.GetId(), "transform");
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
 		Window::Clear();
 		
