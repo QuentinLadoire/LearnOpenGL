@@ -166,6 +166,8 @@ void Window::Init(int width, int height, const char* title)
 
 	glViewport(0, 0, width, height);
 	glfwSetFramebufferSizeCallback(instance.glfwWindow, FramebufferSizeCallback);
+
+	glEnable(GL_DEPTH_TEST);
 }
 void Window::Destroy()
 {
@@ -184,7 +186,7 @@ void Window::PoolEvents()
 void Window::Clear()
 {
 	glClearColor(instance.color.r, instance.color.g, instance.color.b, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 void Window::Display()
 {
