@@ -10,7 +10,8 @@ Texture::Texture(const std::string texturePath)
 {
 	stbi_set_flip_vertically_on_load(true);
 
-	unsigned char* data = stbi_load(texturePath.c_str(), &width, &height, &nrChannels, 0);
+	int channels;
+	unsigned char* data = stbi_load(texturePath.c_str(), &width, &height, &channels, 0);
 	if (!data)
 		throw std::runtime_error{ "Texture Error : Failed to load texture at " + texturePath + "\n" };
 
@@ -40,12 +41,15 @@ Texture::Texture(const std::string texturePath)
 
 	stbi_image_free(data);
 }
+Texture::~Texture()
+{
+	glDeleteTextures(1, &id);
+}
 
 const unsigned int Texture::GetId() const
 {
 	return id;
 }
-
 const int Texture::GetWidth() const
 {
 	return width;

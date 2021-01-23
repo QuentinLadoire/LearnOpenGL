@@ -19,8 +19,8 @@ int main()
 
 	Shader shader = Shader("E:/CppProject/LearnOpenGL/data/Shaders/simple.vert", "E:/CppProject/LearnOpenGL/data/Shaders/simple.frag");
 
-	Texture container = Texture("E:/CppProject/LearnOpenGL/data/Textures/container.jpg");
-	Texture awesomeFace = Texture("E:/CppProject/LearnOpenGL/data/Textures/awesomeface.png");
+	Texture container("E:/CppProject/LearnOpenGL/data/Textures/container.jpg");
+	Texture awesomeFace("E:/CppProject/LearnOpenGL/data/Textures/awesomeface.png");
 
 	float vertices[] = {
 	// Position            // Colors			// TexCoords
