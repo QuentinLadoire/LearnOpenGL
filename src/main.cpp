@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <memory>
 
 #include <glad/glad.h>
 #include <glfw-3-3-2/GLFW/glfw3.h>
@@ -11,8 +12,25 @@
 #include "Window.hpp"
 #include "Shader.hpp"
 #include "Texture.h"
+#include "Component.hpp"
+#include "Entity.hpp"
+
+class Test : public Component { public: Test(Entity& entity) : Component(entity) {} int myint = 5; };
+class Test2 : public Component { public: Test2(Entity& entity) : Component(entity) {} float myfloat = 1.0f; };
 
 int main()
+{
+	Entity entity;
+	const Test& test = entity.AddComponent<Test>();
+	const Test2& test2 = entity.AddComponent<Test2>();
+
+	std::cout << &test.GetEntity() << std::endl;
+	std::cout << &test2.GetEntity() << std::endl;
+
+	return 0;
+}
+
+/*int main()
 {
 	Window::Init(600, 600, "LearnOpenGL");
 	Window::SetClearColor(0.2f, 0.3f, 0.3f);
@@ -101,25 +119,42 @@ int main()
 	shader.SetInt("texture2", 1);
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	//model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-	glm::mat4 view = glm::mat4(1.0f);
-	// note that we're translating the scene in the reverse direction of where we want to move
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	//glm::mat4 view = glm::mat4(1.0f);
+	//// note that we're translating the scene in the reverse direction of where we want to move
+	//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
+	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	const float cameraSpeed = 0.05f;
+	
 	while (Window::IsOpen())
 	{
 		Window::PoolEvents();
 
-		if (Window::IsKeyPress(KeyCode::Q))
+		if (Window::IsKeyPress(KeyCode::L))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		if (Window::IsKeyPress(KeyCode::W))
+		if (Window::IsKeyPress(KeyCode::M))
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-		model = glm::rotate(model, 0.05f * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		if (Window::IsKeyPress(KeyCode::W))
+			cameraPos += cameraSpeed * cameraFront;
+		if (Window::IsKeyPress(KeyCode::S))
+			cameraPos -= cameraSpeed * cameraFront;
+		if (Window::IsKeyPress(KeyCode::A))
+			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		if (Window::IsKeyPress(KeyCode::D))
+			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+
+		//model = glm::rotate(model, 0.05f * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+
+		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 		unsigned int modelLoc = glGetUniformLocation(shader.GetId(), "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -152,4 +187,4 @@ int main()
 	Window::Destroy();
 
 	return 0;
-}
+}*/

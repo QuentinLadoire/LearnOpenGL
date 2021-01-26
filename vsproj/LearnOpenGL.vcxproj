@@ -90,6 +90,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Component.cpp" />
+    <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Shader.cpp" />
@@ -98,6 +100,8 @@
     <ClCompile Include="..\src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Component.hpp" />
+    <ClInclude Include="..\include\Entity.hpp" />
     <ClInclude Include="..\include\Shader.hpp" />
     <ClInclude Include="..\include\Texture.h" />
     <ClInclude Include="..\include\Window.hpp" />
