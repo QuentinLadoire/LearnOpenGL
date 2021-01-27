@@ -94,6 +94,8 @@
     <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Mesh.cpp" />
+    <ClCompile Include="..\src\MeshRenderer.cpp" />
     <ClCompile Include="..\src\Shader.cpp" />
     <ClCompile Include="..\src\std_image.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
@@ -103,6 +105,8 @@
   <ItemGroup>
     <ClInclude Include="..\include\Component.hpp" />
     <ClInclude Include="..\include\Entity.hpp" />
+    <ClInclude Include="..\include\Mesh.hpp" />
+    <ClInclude Include="..\include\MeshRenderer.hpp" />
     <ClInclude Include="..\include\Shader.hpp" />
     <ClInclude Include="..\include\Texture.hpp" />
     <ClInclude Include="..\include\Transform.hpp" />

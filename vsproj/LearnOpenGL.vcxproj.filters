@@ -36,6 +36,12 @@
     <ClCompile Include="..\src\Transform.cpp">
       <Filter>include</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Mesh.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MeshRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Window.hpp">
@@ -54,6 +60,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Texture.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Mesh.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MeshRenderer.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
