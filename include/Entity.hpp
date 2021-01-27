@@ -11,20 +11,23 @@
 class Entity
 {
 	public:
-	const Component& AddComponent(std::unique_ptr<Component>&& component);
+	Entity();
+
+	Component& AddComponent(std::unique_ptr<Component>&& component);
 
 	template <typename T>
-	const T& AddComponent();
+	T& AddComponent();
 
 	template <typename T>
-	const T* GetComponent() const;
+	T* GetComponent() const;
 
 	private:
 	std::vector<std::unique_ptr<Component>> m_components;
+	const class Transform& m_transform;
 };
 
 template <typename T>
-const T& Entity::AddComponent()
+T& Entity::AddComponent()
 {
 	static_assert(std::is_base_of<Component, T>::value, "The class is not derived of component.");
 
@@ -34,7 +37,7 @@ const T& Entity::AddComponent()
 }
 
 template <typename T>
-const T* Entity::GetComponent() const
+T* Entity::GetComponent() const
 {
 	static_assert(std::is_base_of<Component, T>::value, "The class is not derived of component.");
 

@@ -11,21 +11,20 @@
 
 #include "Window.hpp"
 #include "Shader.hpp"
-#include "Texture.h"
-#include "Component.hpp"
+#include "Texture.hpp"
+#include "Transform.hpp"
 #include "Entity.hpp"
-
-class Test : public Component { public: Test(Entity& entity) : Component(entity) {} int myint = 5; };
-class Test2 : public Component { public: Test2(Entity& entity) : Component(entity) {} float myfloat = 1.0f; };
 
 int main()
 {
 	Entity entity;
-	const Test& test = entity.AddComponent<Test>();
-	const Test2& test2 = entity.AddComponent<Test2>();
+	Transform* transform = entity.GetComponent<Transform>();
 
-	std::cout << &test.GetEntity() << std::endl;
-	std::cout << &test2.GetEntity() << std::endl;
+	auto trs = transform->GetLocalToWorldMatrix();
+	std::cout << trs[0][0] << " " << trs[0][1] << " " << trs[0][2] << " " << trs[0][3] << std::endl;
+	std::cout << trs[1][0] << " " << trs[1][1] << " " << trs[1][2] << " " << trs[1][3] << std::endl;
+	std::cout << trs[2][0] << " " << trs[2][1] << " " << trs[2][2] << " " << trs[2][3] << std::endl;
+	std::cout << trs[3][0] << " " << trs[3][1] << " " << trs[3][2] << " " << trs[3][3] << std::endl;
 
 	return 0;
 }

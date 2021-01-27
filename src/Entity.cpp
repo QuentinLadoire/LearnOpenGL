@@ -1,7 +1,12 @@
 
 #include "Entity.hpp"
+#include "Transform.hpp"
 
-const Component& Entity::AddComponent(std::unique_ptr<Component>&& component)
+Entity::Entity() :
+	m_transform{ AddComponent<Transform>() }
+{}
+
+Component& Entity::AddComponent(std::unique_ptr<Component>&& component)
 {
 	if (component == nullptr)
 		throw std::runtime_error{ "ERROR - Entity : The component was nullptr." };

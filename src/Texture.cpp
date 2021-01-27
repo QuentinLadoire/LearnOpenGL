@@ -1,5 +1,5 @@
 
-#include "Texture.h"
+#include "Texture.hpp"
 
 #include <iostream>
 #include <stb_image/std_image.hpp>
