@@ -33,13 +33,13 @@
     <ClCompile Include="..\src\Component.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Transform.cpp">
-      <Filter>include</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Mesh.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\MeshRenderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Transform.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

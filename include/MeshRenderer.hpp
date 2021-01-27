@@ -8,7 +8,13 @@ class Shader;
 class MeshRenderer : public Component
 {
 	public:
+	MeshRenderer(Entity& entity);
+
+	const Mesh* GetMesh() const;
+	const Shader* GetShader() const;
+
 	void SetMesh(Mesh* mesh);
+	void SetShader(Shader* shader);
 
 	void Draw();
 

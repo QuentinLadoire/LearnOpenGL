@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <type_traits>
 
 #include <glm/glm.hpp>
 
@@ -18,6 +19,8 @@ class Mesh
 {
 	public:
 	Mesh();
+	Mesh(Mesh&& move) noexcept;
+	~Mesh();
 
 	const unsigned int GetVertexArrayId() const;
 	const unsigned int GetVerticesCount() const;
@@ -26,13 +29,15 @@ class Mesh
 
 	void UpdateBufferGPU();
 
+	static Mesh CreatePrimitive(Primitive primitive);
+
+	private:
 	static Mesh CreateCube();
 	static Mesh CreateQuad();
 	static Mesh CreatePlane();
 	static Mesh CreateSphere();
 	static Mesh CreateCylinder();
 	static Mesh CreateCapsule();
-	static Mesh CreatePrimitive(Primitive primitive);
 
 	private:
 	std::unique_ptr<glm::vec3[]> m_vertices;

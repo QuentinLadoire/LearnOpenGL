@@ -7,9 +7,26 @@
 #include "Mesh.hpp"
 #include "Shader.hpp"
 
+MeshRenderer::MeshRenderer(Entity& entity) :
+	Component(entity)
+{}
+
+const Mesh* MeshRenderer::GetMesh() const
+{
+	return m_mesh;
+}
+const Shader* MeshRenderer::GetShader() const
+{
+	return m_shader;
+}
+
 void MeshRenderer::SetMesh(Mesh* mesh)
 {
 	m_mesh = mesh;
+}
+void MeshRenderer::SetShader(Shader* shader)
+{
+	m_shader = shader;
 }
 
 void MeshRenderer::Draw()

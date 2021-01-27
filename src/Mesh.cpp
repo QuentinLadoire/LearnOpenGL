@@ -10,6 +10,26 @@ Mesh::Mesh()
 	glGenBuffers(1, &m_VBO);
 	glGenBuffers(1, &m_EBO);
 }
+Mesh::Mesh(Mesh&& move) noexcept
+{
+	m_verticesCount = move.m_verticesCount;
+	m_trianglesCount = move.m_trianglesCount;
+	m_uvCount = move.m_uvCount;
+
+	m_vertices = std::move(move.m_vertices);
+	m_triangles = std::move(move.m_triangles);
+	m_uv = std::move(move.m_uv);
+
+	m_VAO = move.m_VAO;
+	m_VBO = move.m_VBO;
+	m_EBO = move.m_EBO;
+}
+Mesh::~Mesh()
+{
+	glDeleteVertexArrays(1, &m_VAO);
+	glDeleteBuffers(1, &m_VBO);
+	glDeleteBuffers(1, &m_EBO);
+}
 
 const unsigned int Mesh::GetVertexArrayId() const
 {
@@ -144,7 +164,7 @@ Mesh Mesh::CreateCube()
 
 	cube.UpdateBufferGPU();
 
-	return Mesh();
+	return cube;
 }
 Mesh Mesh::CreatePlane()
 {

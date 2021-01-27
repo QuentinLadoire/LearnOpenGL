@@ -12,12 +12,37 @@
 #include "Window.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
+#include "Mesh.hpp"
 #include "Transform.hpp"
+#include "MeshRenderer.hpp"
 #include "Entity.hpp"
 
 int main()
 {
+	Window::Init(600, 600, "LearnOpenGL");
+	Window::SetClearColor(0.2f, 0.3f, 0.3f);
 
+	Shader shader = Shader("E:/CppProject/LearnOpenGL/data/Shaders/simple.vert", "E:/CppProject/LearnOpenGL/data/Shaders/simple.frag");
+
+	Mesh cubeMesh = Mesh::CreatePrimitive(Primitive::Cube);
+
+	Entity entity;
+	MeshRenderer& renderer = entity.AddComponent<MeshRenderer>();
+	renderer.SetMesh(&cubeMesh);
+	renderer.SetShader(&shader);
+
+	while (Window::IsOpen())
+	{
+		Window::PoolEvents();
+
+		Window::Clear();
+
+		renderer.Draw();
+
+		Window::Display();
+	}
+
+	Window::Destroy();
 	return 0;
 }
 
