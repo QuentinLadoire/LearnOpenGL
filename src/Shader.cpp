@@ -68,15 +68,15 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
 		std::cout << "Error - Shader : Fragment Compilation Failed" << std::endl << infoLog << std::endl;
 	}
 
-	id = glCreateProgram();
-	glAttachShader(id, vertexId);
-	glAttachShader(id, fragmentId);
-	glLinkProgram(id);
+	m_id = glCreateProgram();
+	glAttachShader(m_id, vertexId);
+	glAttachShader(m_id, fragmentId);
+	glLinkProgram(m_id);
 
-	glGetProgramiv(id, GL_LINK_STATUS, &success);
+	glGetProgramiv(m_id, GL_LINK_STATUS, &success);
 	if (!success)
 	{
-		glGetProgramInfoLog(id, 512, NULL, infoLog);
+		glGetProgramInfoLog(m_id, 512, NULL, infoLog);
 		std::cout << "ERROR - Shader : Program Linking Failed" << std::endl << infoLog << std::endl;
 	}
 
@@ -85,28 +85,196 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
 }
 Shader::~Shader()
 {
-	glDeleteProgram(id);
+	glDeleteProgram(m_id);
 }
 
-void Shader::Use()
+void Shader::Use() const
 {
-	glUseProgram(id);
+	glUseProgram(m_id);
 }
 
 void Shader::SetBool(const std::string& name, bool value) const
 {
-	glUniform1i(glGetUniformLocation(id, name.c_str()), (int)value);
+	glUseProgram(m_id);
+	glUniform1i(glGetUniformLocation(m_id, name.c_str()), (int)value);
 }
-void Shader::SetInt(const std::string& name, int value) const
-{
-	glUniform1i(glGetUniformLocation(id, name.c_str()), value);
-}
+
 void Shader::SetFloat(const std::string& name, float value) const
 {
-	glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+	glUseProgram(m_id);
+	glUniform1f(glGetUniformLocation(m_id, name.c_str()), value);
+}
+void Shader::Set2Float(const std::string& name, float value1, float value2) const
+{
+	glUseProgram(m_id);
+	glUniform2f(glGetUniformLocation(m_id, name.c_str()), value1, value2);
+}
+void Shader::Set3Float(const std::string& name, float value1, float value2, float value3) const
+{
+	glUseProgram(m_id);
+	glUniform3f(glGetUniformLocation(m_id, name.c_str()), value1, value2, value3);
+}
+void Shader::Set4Float(const std::string& name, float value1, float value2, float value3, float value4) const
+{
+	glUseProgram(m_id);
+	glUniform4f(glGetUniformLocation(m_id, name.c_str()), value1, value2, value3, value4);
+}
+
+void Shader::SetInt(const std::string& name, int value) const
+{
+	glUseProgram(m_id);
+	glUniform1i(glGetUniformLocation(m_id, name.c_str()), value);
+}
+void Shader::Set2Int(const std::string& name, int value1, int value2) const
+{
+	glUseProgram(m_id);
+	glUniform2i(glGetUniformLocation(m_id, name.c_str()), value1, value2);
+}
+void Shader::Set3Int(const std::string& name, int value1, int value2, int value3) const
+{
+	glUseProgram(m_id);
+	glUniform3i(glGetUniformLocation(m_id, name.c_str()), value1, value2, value3);
+}
+void Shader::Set4Int(const std::string& name, int value1, int value2, int value3, int value4) const
+{
+	glUseProgram(m_id);
+	glUniform4i(glGetUniformLocation(m_id, name.c_str()), value1, value2, value3, value4);
+}
+
+void Shader::SetUInt(const std::string& name, unsigned int value) const
+{
+	glUseProgram(m_id);
+	glUniform1ui(glGetUniformLocation(m_id, name.c_str()), value);
+}
+void Shader::Set2UInt(const std::string& name, unsigned int value1, unsigned int value2) const
+{
+	glUseProgram(m_id);
+	glUniform2ui(glGetUniformLocation(m_id, name.c_str()), value1, value2);
+}
+void Shader::Set3UInt(const std::string& name, unsigned int value1, unsigned int value2, unsigned int value3) const
+{
+	glUseProgram(m_id);
+	glUniform3ui(glGetUniformLocation(m_id, name.c_str()), value1, value2, value3);
+}
+void Shader::Set4UInt(const std::string& name, unsigned int value1, unsigned int value2, unsigned int value3, unsigned int value4) const
+{
+	glUseProgram(m_id);
+	glUniform4ui(glGetUniformLocation(m_id, name.c_str()), value1, value2, value3, value4);
+}
+
+void Shader::SetFloatArray(const std::string& name, int count, const float* value) const
+{
+	glUseProgram(m_id);
+	glUniform1fv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set2FloatArray(const std::string& name, int count, const float* value) const
+{
+	glUseProgram(m_id);
+	glUniform2fv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set3FloatArray(const std::string& name, int count, const float* value) const
+{
+	glUseProgram(m_id);
+	glUniform3fv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set4FloatArray(const std::string& name, int count, const float* value) const
+{
+	glUseProgram(m_id);
+	glUniform4fv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+
+void Shader::SetIntArray(const std::string& name, int count, const int* value) const
+{
+	glUseProgram(m_id);
+	glUniform1iv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set2IntArray(const std::string& name, int count, const int* value) const
+{
+	glUseProgram(m_id);
+	glUniform2iv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set3IntArray(const std::string& name, int count, const int* value) const
+{
+	glUseProgram(m_id);
+	glUniform3iv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set4IntArray(const std::string& name, int count, const int* value) const
+{
+	glUseProgram(m_id);
+	glUniform4iv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+
+void Shader::SetUIntArray(const std::string& name, int count, const unsigned int* value) const
+{
+	glUseProgram(m_id);
+	glUniform1uiv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set2UIntArray(const std::string& name, int count, const unsigned int* value) const
+{
+	glUseProgram(m_id);
+	glUniform2uiv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set3UIntArray(const std::string& name, int count, const unsigned int* value) const
+{
+	glUseProgram(m_id);
+	glUniform3uiv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+void Shader::Set4UIntArray(const std::string& name, int count, const unsigned int* value) const
+{
+	glUseProgram(m_id);
+	glUniform4uiv(glGetUniformLocation(m_id, name.c_str()), count, value);
+}
+
+void Shader::SetMatrix2(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix2fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
+}
+void Shader::SetMatrix3(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix3fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
+}
+void Shader::SetMatrix4(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix4fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
+}
+
+void Shader::SetMatrix2x3(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix2x3fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
+}
+void Shader::SetMatrix3x2(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix3x2fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
+}
+
+void Shader::SetMatrix2x4(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix2x4fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
+}
+void Shader::SetMatrix4x2(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix4x2fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
+}
+
+void Shader::SetMatrix3x4(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix3x4fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
+}
+void Shader::SetMatrix4x3(const std::string& name, int count, bool transpose, const float* value)
+{
+	glUseProgram(m_id);
+	glUniformMatrix4x3fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
 }
 
 const unsigned int Shader::GetId() const
 {
-	return id;
+	return m_id;
 }

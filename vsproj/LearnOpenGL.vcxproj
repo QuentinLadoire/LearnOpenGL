@@ -62,7 +62,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw-3-3-2\glfw-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw-3-3-2\glfw-d.lib;jsoncpp\jsoncpp-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -82,7 +82,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw-3-3-2\glfw.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw-3-3-2\glfw.lib;jsoncpp\jsoncpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -94,6 +94,7 @@
     <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Material.cpp" />
     <ClCompile Include="..\src\Mesh.cpp" />
     <ClCompile Include="..\src\MeshRenderer.cpp" />
     <ClCompile Include="..\src\Shader.cpp" />
@@ -105,6 +106,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\Component.hpp" />
     <ClInclude Include="..\include\Entity.hpp" />
+    <ClInclude Include="..\include\Material.hpp" />
     <ClInclude Include="..\include\Mesh.hpp" />
     <ClInclude Include="..\include\MeshRenderer.hpp" />
     <ClInclude Include="..\include\Shader.hpp" />
