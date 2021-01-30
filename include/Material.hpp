@@ -9,4 +9,6 @@ class Material
 {
 	private:
 	Shader* m_shader = nullptr;
+
+
 };

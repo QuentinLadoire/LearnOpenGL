@@ -13,6 +13,7 @@
 
 #include "Window.hpp"
 #include "Shader.hpp"
+#include "Image.hpp"
 #include "Texture.hpp"
 #include "Mesh.hpp"
 #include "Transform.hpp"
@@ -33,13 +34,16 @@ int main()
 	renderer.SetMesh(&cubeMesh);
 	renderer.SetShader(&shader);
 
+	Image image = Image("E:/CppProject/LearnOpenGL/data/Textures/container.jpg");
+	
+	Texture texture = Texture();
+	texture.LoadFromImage(image);
+
 	while (Window::IsOpen())
 	{
 		Window::PoolEvents();
 
 		Window::Clear();
-
-		renderer.Draw();
 
 		Window::Display();
 	}

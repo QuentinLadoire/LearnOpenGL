@@ -6,55 +6,82 @@
 #include <glad/glad.h>
 #include <glfw-3-3-2/GLFW/glfw3.h>
 
-Texture::Texture(const std::string texturePath)
+#include "Image.hpp"
+
+static const int getWrapMode[static_cast<int>(WrapMode::Count)]
 {
-	stbi_set_flip_vertically_on_load(true);
+	GL_REPEAT,
+	GL_MIRRORED_REPEAT,
+	GL_CLAMP_TO_EDGE,
+	GL_CLAMP_TO_BORDER
+};
 
-	int channels;
-	unsigned char* data = stbi_load(texturePath.c_str(), &width, &height, &channels, 0);
-	if (!data)
-		throw std::runtime_error{ "Texture Error : Failed to load texture at " + texturePath + "\n" };
+static const int getFilterMode[static_cast<int>(FilterMode::Count)]
+{
+	GL_NEAREST,
+	GL_LINEAR
+};
 
-	glGenTextures(1, &id);
-	glBindTexture(GL_TEXTURE_2D, id);
+Texture::Texture()
+{
+	glGenTextures(1, &m_id);
+	glBindTexture(GL_TEXTURE_2D, m_id);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	auto extension = texturePath.substr(texturePath.find_last_of('.'));
-	if (extension == ".png")
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else if (extension == ".jpg")
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		throw std::runtime_error{ "Texture Error : " + extension + "not supported\n" };
-	}
-
-	stbi_image_free(data);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, getWrapMode[static_cast<int>(m_wrapMode)]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, getWrapMode[static_cast<int>(m_wrapMode)]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, getFilterMode[static_cast<int>(m_filterMode)]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, getFilterMode[static_cast<int>(m_filterMode)]);
 }
 Texture::~Texture()
 {
-	glDeleteTextures(1, &id);
+	glDeleteTextures(1, &m_id);
 }
 
 const unsigned int Texture::GetId() const
 {
-	return id;
+	return m_id;
 }
 const int Texture::GetWidth() const
 {
-	return width;
+	return m_width;
 }
 const int Texture::GetHeight() const
 {
-	return height;
+	return m_height;
+}
+
+const WrapMode Texture::GetWrapMode() const
+{
+	return m_wrapMode;
+}
+const FilterMode Texture::GetFilterMode() const
+{
+	return m_filterMode;
+}
+
+void Texture::SetWrapMode(WrapMode wrapMode)
+{
+	m_wrapMode = wrapMode;
+}
+void Texture::SetFilterMode(FilterMode filterMode)
+{
+	m_filterMode = filterMode;
+}
+
+void Texture::LoadFromImage(Image& image)
+{
+	m_image = &image;
+	m_width = image.GetWidth();
+	m_height = image.GetHeight();
+
+	glBindTexture(GL_TEXTURE_2D, m_id);
+
+	if (m_image->GetChannels() == 3)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.GetData());
+	}
+	else if (m_image->GetChannels() == 4)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.GetData());
+	}
 }
