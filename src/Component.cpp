@@ -1,8 +1,13 @@
 
 #include "Component.hpp"
 
+#include "Entity.hpp"
+#include "Transform.hpp"
+
 Component::Component(Entity& entity) :
-	m_entity{entity} {}
+	m_entity{entity},
+	m_transform{entity.GetComponent<Transform>()}
+{}
 
 Component::~Component() {};
 
@@ -10,4 +15,9 @@ Component::~Component() {};
 const Entity& Component::GetEntity() const
 {
 	return m_entity;
+}
+
+const Transform* Component::GetTransform() const
+{
+	return m_transform;
 }

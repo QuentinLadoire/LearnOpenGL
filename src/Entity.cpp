@@ -15,3 +15,8 @@ Component& Entity::AddComponent(std::unique_ptr<Component>&& component)
 
 	return *(m_components[m_components.size() - 1].get());
 }
+
+Transform& Entity::GetTransform() const
+{
+	return m_transform;
+}

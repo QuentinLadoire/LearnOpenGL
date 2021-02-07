@@ -1,6 +1,7 @@
 #pragma once
 
 class Entity;
+class Transform;
 
 class Component
 {
@@ -9,7 +10,9 @@ class Component
 	virtual ~Component();
 
 	const Entity& GetEntity() const;
+	const Transform* GetTransform() const;
 
 	private:
 	Entity& m_entity;
+	Transform* m_transform = nullptr;
 };

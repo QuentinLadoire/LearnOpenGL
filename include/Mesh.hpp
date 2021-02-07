@@ -40,9 +40,9 @@ class Mesh
 	static Mesh CreateCapsule();
 
 	private:
-	std::unique_ptr<glm::vec3[]> m_vertices;
+	std::unique_ptr<float[]> m_vertices;
 	std::unique_ptr<unsigned int[]> m_triangles;
-	std::unique_ptr<glm::vec2[]> m_uv;
+	std::unique_ptr<float[]> m_uv;
 
 	unsigned int m_verticesCount = 0;
 	unsigned int m_trianglesCount = 0;

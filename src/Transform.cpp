@@ -26,6 +26,31 @@ const glm::vec3 Transform::GetEulerAngle() const
 	return euler;
 }
 
+const glm::vec3 Transform::GetForward() const 
+{
+	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+}
+const glm::vec3 Transform::GetBackward() const
+{
+	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f);
+}
+const glm::vec3 Transform::GetRight() const
+{
+	return GetLocalToWorldMatrix() * glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+}
+const glm::vec3 Transform::GetLeft() const
+{
+	return GetLocalToWorldMatrix() * glm::vec4(-1.0f, 0.0f, 0.0f, 1.0f);
+}
+const glm::vec3 Transform::GetUp() const
+{
+	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+}
+const glm::vec3 Transform::GetDown() const
+{
+	return GetLocalToWorldMatrix() * glm::vec4(0.0f, -1.0f, 0.0f, 1.0f);
+}
+
 void Transform::SetPosition(glm::vec3 position)
 {
 	m_position = position;
@@ -46,7 +71,7 @@ void Transform::SetEulerAngle(glm::vec3 eulerAngle)
 	m_rotation = glm::quat(eulerAngle);
 }
 
-const glm::mat4 Transform::GetLocalToWorldMatrix()
+const glm::mat4 Transform::GetLocalToWorldMatrix() const
 {
 	glm::mat4 identity = glm::identity<glm::mat4>();
 

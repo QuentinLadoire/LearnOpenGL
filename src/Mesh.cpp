@@ -1,6 +1,8 @@
 
 #include "Mesh.hpp"
 
+#include <iostream>
+
 #include <glad/glad.h>
 #include <glfw-3-3-2/GLFW/glfw3.h>
 
@@ -23,6 +25,10 @@ Mesh::Mesh(Mesh&& move) noexcept
 	m_VAO = move.m_VAO;
 	m_VBO = move.m_VBO;
 	m_EBO = move.m_EBO;
+
+	move.m_VAO = 0;
+	move.m_VBO = 0;
+	move.m_EBO = 0;
 }
 Mesh::~Mesh()
 {
@@ -53,7 +59,7 @@ void Mesh::UpdateBufferGPU()
 	glBindVertexArray(m_VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m_verticesCount * 3, m_vertices.get(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m_verticesCount, m_vertices.get(), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_trianglesCount, m_triangles.get(), GL_STATIC_DRAW);
@@ -66,15 +72,15 @@ Mesh Mesh::CreateQuad()
 {
 	Mesh quad{};
 
-	quad.m_verticesCount = 4;
+	quad.m_verticesCount = 4 * 3;
 	quad.m_trianglesCount = 6;
-	quad.m_uvCount = 4;
 
-	quad.m_vertices = std::make_unique<glm::vec3[]>(quad.m_verticesCount);
-	quad.m_vertices[0] = glm::vec3(-0.5f, 0.0f, -0.5f);
-	quad.m_vertices[1] = glm::vec3(0.5f, 0.0f, -0.5f);
-	quad.m_vertices[2] = glm::vec3(-0.5f, 0.0f, 0.5f);
-	quad.m_vertices[3] = glm::vec3(0.5f, 0.0f, 0.5f);
+	quad.m_vertices = std::make_unique<float[]>(quad.m_verticesCount);
+	/*                  X                            Y                            Z     */
+	quad.m_vertices[0 ] = -0.5f; quad.m_vertices[1 ] =  0.0f; quad.m_vertices[2 ] = -0.5f;
+	quad.m_vertices[3 ] =  0.5f; quad.m_vertices[4 ] =  0.0f; quad.m_vertices[5 ] = -0.5f;
+	quad.m_vertices[6 ] = -0.5f; quad.m_vertices[7 ] =  0.0f; quad.m_vertices[8 ] =  0.5f;
+	quad.m_vertices[9 ] =  0.5f; quad.m_vertices[10] =  0.0f; quad.m_vertices[11] =  0.5f;
 
 	quad.m_triangles = std::make_unique<unsigned int[]>(quad.m_trianglesCount);
 	quad.m_triangles[0] = 0;
@@ -85,12 +91,6 @@ Mesh Mesh::CreateQuad()
 	quad.m_triangles[4] = 2;
 	quad.m_triangles[5] = 1;
 
-	quad.m_uv = std::make_unique<glm::vec2[]>(quad.m_uvCount);
-	quad.m_uv[0] = glm::vec2(0.0f, 0.0f);
-	quad.m_uv[0] = glm::vec2(1.0f, 0.0f);
-	quad.m_uv[0] = glm::vec2(0.0f, 1.0f);
-	quad.m_uv[0] = glm::vec2(1.0f, 1.0f);
-
 	quad.UpdateBufferGPU();
 
 	return quad;
@@ -98,20 +98,21 @@ Mesh Mesh::CreateQuad()
 Mesh Mesh::CreateCube()
 {
 	Mesh cube{};
-
-	cube.m_verticesCount = 8;
+	
+	cube.m_verticesCount = 8 * 3;
 	cube.m_trianglesCount = 36;
 
-	cube.m_vertices = std::make_unique<glm::vec3[]>(cube.m_verticesCount);
-	cube.m_vertices[0] = glm::vec3(-0.5f, -0.5f, -0.5f);
-	cube.m_vertices[1] = glm::vec3( 0.5f, -0.5f, -0.5f);
-	cube.m_vertices[2] = glm::vec3(-0.5f,  0.5f, -0.5f);
-	cube.m_vertices[3] = glm::vec3( 0.5f,  0.5f, -0.5f);
+	cube.m_vertices = std::make_unique<float[]>(cube.m_verticesCount);
+	/*                  X                            Y                            Z     */
+	cube.m_vertices[0 ] = -0.5f; cube.m_vertices[1 ] = -0.5f; cube.m_vertices[2 ] = -0.5f;
+	cube.m_vertices[3 ] =  0.5f; cube.m_vertices[4 ] = -0.5f; cube.m_vertices[5 ] = -0.5f;
+	cube.m_vertices[6 ] = -0.5f; cube.m_vertices[7 ] =  0.5f; cube.m_vertices[8 ] = -0.5f;
+	cube.m_vertices[9 ] =  0.5f; cube.m_vertices[10] =  0.5f; cube.m_vertices[11] = -0.5f;
 
-	cube.m_vertices[4] = glm::vec3(-0.5f, -0.5f,  0.5f);
-	cube.m_vertices[5] = glm::vec3( 0.5f, -0.5f,  0.5f);
-	cube.m_vertices[6] = glm::vec3(-0.5f,  0.5f,  0.5f);
-	cube.m_vertices[7] = glm::vec3( 0.5f,  0.5f,  0.5f);
+	cube.m_vertices[12] = -0.5f; cube.m_vertices[13] = -0.5f; cube.m_vertices[14] =  0.5f;
+	cube.m_vertices[15] =  0.5f; cube.m_vertices[16] = -0.5f; cube.m_vertices[17] =  0.5f;
+	cube.m_vertices[18] = -0.5f; cube.m_vertices[19] =  0.5f; cube.m_vertices[20] =  0.5f;
+	cube.m_vertices[21] =  0.5f; cube.m_vertices[22] =  0.5f; cube.m_vertices[23] =  0.5f;
 
 	cube.m_triangles = std::make_unique<unsigned int[]>(cube.m_trianglesCount);
 	cube.m_triangles[0 ] = 0;

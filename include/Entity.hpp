@@ -15,6 +15,8 @@ class Entity
 
 	Component& AddComponent(std::unique_ptr<Component>&& component);
 
+	Transform& GetTransform() const;
+
 	template <typename T>
 	T& AddComponent();
 
@@ -23,7 +25,7 @@ class Entity
 
 	private:
 	std::vector<std::unique_ptr<Component>> m_components;
-	const class Transform& m_transform;
+	class Transform& m_transform;
 };
 
 template <typename T>
@@ -31,7 +33,7 @@ T& Entity::AddComponent()
 {
 	static_assert(std::is_base_of<Component, T>::value, "The class is not derived of component.");
 
-	Component& component = const_cast<Component&>(AddComponent(std::make_unique<T>(*this)));
+	Component& component = AddComponent(std::make_unique<T>(*this));
 	
 	return static_cast<T&>(component);
 }
