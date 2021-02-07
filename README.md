@@ -7,4 +7,4 @@ I use the 2D Noise for generate a ground level, and a other 2D Noise for generat
 Actually, i try to implement with a 3D Noise a Cave generation.
 
 ## This is a link for a video presentation :
-[![IMAGE ALT TEXT HERE](http://i3.ytimg.com/vi/1vElwjDgs-8/maxresdefault.jpg)](https://www.youtube.com/watch?v=1vElwjDgs-8)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/1vElwjDgs-8/0.jpg)](https://www.youtube.com/watch?v=1vElwjDgs-8)
