@@ -101,6 +101,7 @@
     <ClCompile Include="..\src\Material.cpp" />
     <ClCompile Include="..\src\Mesh.cpp" />
     <ClCompile Include="..\src\MeshRenderer.cpp" />
+    <ClCompile Include="..\src\Scene.cpp" />
     <ClCompile Include="..\src\Shader.cpp" />
     <ClCompile Include="..\src\std_image.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="..\include\Material.hpp" />
     <ClInclude Include="..\include\Mesh.hpp" />
     <ClInclude Include="..\include\MeshRenderer.hpp" />
+    <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\Shader.hpp" />
     <ClInclude Include="..\include\Texture.hpp" />
     <ClInclude Include="..\include\Transform.hpp" />

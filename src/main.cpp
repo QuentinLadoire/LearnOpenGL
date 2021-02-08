@@ -55,6 +55,9 @@ int main()
 		Window::PoolEvents();
 
 		angle += 0.5f;
+		if (angle > 360.0f)
+			angle = 0.0f;
+
 		entity.GetTransform().SetEulerAngle(glm::vec3(angle, angle, angle));
 
 		Window::Clear();
