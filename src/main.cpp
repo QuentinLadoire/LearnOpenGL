@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <stdlib.h>
 #include <memory>
 
 #include <glad/glad.h>
@@ -66,15 +67,21 @@ int main()
 	Shader shader = Shader("E:/CppProject/LearnOpenGL/data/Shaders/simple.vert", "E:/CppProject/LearnOpenGL/data/Shaders/simple.frag");
 	Mesh cubeMesh = Mesh::CreatePrimitive(Primitive::Cube);
 
-	Entity& entity = scene.AddEntity();
-	entity.AddComponent<Tmp>();
-	MeshRenderer& renderer = entity.AddComponent<MeshRenderer>();
-	renderer.SetColor(glm::vec4(1.0f, 0.5f, 0.3f, 1.0f));
-	renderer.SetMesh(&cubeMesh);
-	renderer.SetShader(&shader);
+	srand(3);
 
+	for (int i = 0; i < 10; i++)
+	{
+		Entity& entity = scene.AddEntity();
+		entity.GetTransform().SetPosition(glm::vec3((rand() % 5) - 2.5f, (rand() % 5) - 2.5f, (rand() % 5) - 2.5f));
+
+		entity.AddComponent<Tmp>();
+		MeshRenderer& renderer = entity.AddComponent<MeshRenderer>();
+		renderer.SetColor(glm::vec4(1.0f, 0.5f, 0.3f, 1.0f));
+		renderer.SetMesh(&cubeMesh);
+		renderer.SetShader(&shader);
+	}
 	Entity& cameraEntity = scene.AddEntity();
-	cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
+	cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 	cameraEntity.AddComponent<Camera>();
 
 	SceneManager::Start();
