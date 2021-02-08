@@ -17,7 +17,7 @@ const Entity& Component::GetEntity() const
 	return m_entity;
 }
 
-const Transform* Component::GetTransform() const
+Transform* Component::GetTransform() const
 {
 	return m_transform;
 }

@@ -5,6 +5,9 @@
 
 #include "Entity.hpp"
 
+class MeshRenderer;
+class Script;
+
 class Scene
 {
 	public:
@@ -19,4 +22,6 @@ class Scene
 
 	private:
 	std::vector<std::unique_ptr<Entity>> m_entities{};
+	std::vector<MeshRenderer*> m_renderers{};
+	std::vector<Script*> m_scripts{};
 };

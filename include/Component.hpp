@@ -10,7 +10,7 @@ class Component
 	virtual ~Component();
 
 	const Entity& GetEntity() const;
-	const Transform* GetTransform() const;
+	Transform* GetTransform() const;
 
 	private:
 	Entity& m_entity;
