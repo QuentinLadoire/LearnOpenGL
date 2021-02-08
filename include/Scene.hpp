@@ -5,8 +5,6 @@
 
 #include "Entity.hpp"
 
-class MeshRenderer;
-
 class Scene
 {
 	public:

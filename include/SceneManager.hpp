@@ -15,7 +15,7 @@ class SceneManager
 	private:
 	SceneManager() = default;
 
-	std::unique_ptr<Scene> m_currentScene;
+	std::unique_ptr<Scene> m_currentScene{};
 
 	private:
 	static SceneManager m_instance;
