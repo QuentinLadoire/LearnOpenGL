@@ -8,7 +8,7 @@
 #include "Mesh.hpp"
 #include "Shader.hpp"
 #include "Transform.hpp"
-#include "Camera.h"
+#include "Camera.hpp"
 #include "Entity.hpp"
 
 MeshRenderer::MeshRenderer(Entity& entity) :

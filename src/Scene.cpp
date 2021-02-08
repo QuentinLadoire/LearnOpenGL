@@ -1,5 +1,5 @@
 
-#include "Scene.h"
+#include "Scene.hpp"
 
 Entity& Scene::AddEntity()
 {
@@ -7,7 +7,6 @@ Entity& Scene::AddEntity()
 
 	return *(m_entities[m_entities.size() - 1].get());
 }
-
 void Scene::RemoveEntity(Entity& entity)
 {
 	auto it = m_entities.begin();
@@ -16,4 +15,22 @@ void Scene::RemoveEntity(Entity& entity)
 			break;
 
 	m_entities.erase(it);
+}
+
+void Scene::Load()
+{
+
+}
+void Scene::Unload()
+{
+
+}
+
+void Scene::Start()
+{
+
+}
+void Scene::Update()
+{
+
 }

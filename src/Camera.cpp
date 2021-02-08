@@ -1,5 +1,5 @@
 
-#include "Camera.h"
+#include "Camera.hpp"
 
 #include "Entity.hpp"
 #include "Transform.hpp"

@@ -12,13 +12,18 @@
 
 
 #include "Window.hpp"
+#include "SceneManager.hpp"
+#include "Scene.hpp"
+
 #include "Shader.hpp"
 #include "Image.hpp"
 #include "Texture.hpp"
 #include "Mesh.hpp"
+
 #include "Transform.hpp"
 #include "MeshRenderer.hpp"
-#include "Camera.h"
+#include "Camera.hpp"
+
 #include "Entity.hpp"
 
 void DebugLog(glm::mat4 matrix)
@@ -34,33 +39,38 @@ int main()
 	Window::Init(600, 600, "LearnOpenGL");
 	Window::SetClearColor(0.2f, 0.3f, 0.3f);
 
-	Shader shader = Shader("E:/CppProject/LearnOpenGL/data/Shaders/simple.vert", "E:/CppProject/LearnOpenGL/data/Shaders/simple.frag");
+	Scene& scene = SceneManager::LoadScene(std::make_unique<Scene>());
 
+	Shader shader = Shader("E:/CppProject/LearnOpenGL/data/Shaders/simple.vert", "E:/CppProject/LearnOpenGL/data/Shaders/simple.frag");
 	Mesh cubeMesh = Mesh::CreatePrimitive(Primitive::Cube);
 
-	Entity entity;
+	Entity& entity = scene.AddEntity();
 	MeshRenderer& renderer = entity.AddComponent<MeshRenderer>();
 	renderer.SetColor(glm::vec4(1.0f, 0.5f, 0.3f, 1.0f));
 	renderer.SetMesh(&cubeMesh);
 	renderer.SetShader(&shader);
 
+	Entity& cameraEntity = scene.AddEntity();
+	cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
+	cameraEntity.AddComponent<Camera>();
+
 	float angle = 0.0f;
 
-	Entity cameraEntity;
-	cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
-	Camera& camera = cameraEntity.AddComponent<Camera>();
+	SceneManager::Start();
 
 	while (Window::IsOpen())
 	{
 		Window::PoolEvents();
+
+		Window::Clear();
+
+		SceneManager::Update();
 
 		angle += 0.5f;
 		if (angle > 360.0f)
 			angle = 0.0f;
 
 		entity.GetTransform().SetEulerAngle(glm::vec3(angle, angle, angle));
-
-		Window::Clear();
 
 		renderer.Draw();
 

@@ -54,6 +54,9 @@
     <ClCompile Include="..\src\Scene.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\SceneManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Window.hpp">
@@ -86,10 +89,13 @@
     <ClInclude Include="..\include\Image.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Camera.h">
+    <ClInclude Include="..\include\Scene.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Scene.h">
+    <ClInclude Include="..\include\Camera.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SceneManager.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
