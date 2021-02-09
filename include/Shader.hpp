@@ -5,7 +5,13 @@
 class Shader
 {
 	public:
-	Shader(const std::string vertexPath, const std::string fragmentPath);
+	static const char* Path;
+
+	private:
+	Shader(const std::string& vertexPath, const std::string& fragmentPath);
+
+	public:
+	Shader(const std::string& name);
 	~Shader();
 
 	void Use() const;
@@ -93,4 +99,5 @@ class Shader
 
 	private:
 	unsigned int m_id = 0;
+	std::string m_name = "";
 };

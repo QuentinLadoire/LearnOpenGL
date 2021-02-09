@@ -10,6 +10,7 @@
     <SrcDir>$(RootDir)src</SrcDir>
     <TempDir>$(RootDir)temp</TempDir>
     <VsprojDir>$(RootDir)vsproj</VsprojDir>
+    <WorkingDir>$(RootDir)working</WorkingDir>
   </PropertyGroup>
   <PropertyGroup>
     <_PropertySheetDisplayName>default</_PropertySheetDisplayName>
@@ -48,6 +49,9 @@
     </BuildMacro>
     <BuildMacro Include="VsprojDir">
       <Value>$(VsprojDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="WorkingDir">
+      <Value>$(WorkingDir)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>

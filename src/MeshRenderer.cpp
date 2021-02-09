@@ -61,6 +61,8 @@ void MeshRenderer::Draw()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		m_shader->Set4Float("albedo", 0.0f, 0.0f, 0.0f, 1.0f);
+		
+		m_shader->SetMatrix4("model", 1, false, glm::value_ptr(glm::scale(GetTransform()->GetLocalToWorldMatrix(), glm::vec3(1.01f, 1.01f, 1.01f))));
 		glDrawElements(GL_TRIANGLES, m_mesh->GetTrianglesCount(), GL_UNSIGNED_INT, 0);
 	}
 }

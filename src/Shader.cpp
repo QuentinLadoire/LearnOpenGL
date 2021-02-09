@@ -5,7 +5,9 @@
 #include <sstream>
 #include <glad/glad.h>
 
-Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
+const char* Shader::Path = "data/Shaders/";
+
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 {
 	std::string vertexString;
 	std::string fragmentString;
@@ -82,6 +84,11 @@ Shader::Shader(const std::string vertexPath, const std::string fragmentPath)
 
 	glDeleteShader(vertexId);
 	glDeleteShader(fragmentId);
+}
+Shader::Shader(const std::string& name) :
+	Shader(Path + name + ".vert", Path + name + ".frag")
+{
+	m_name = name;
 }
 Shader::~Shader()
 {

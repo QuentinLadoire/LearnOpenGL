@@ -64,7 +64,41 @@ int main()
 
 	Scene& scene = SceneManager::LoadScene(std::make_unique<Scene>());
 
-	Shader shader = Shader("E:/CppProject/LearnOpenGL/data/Shaders/simple.vert", "E:/CppProject/LearnOpenGL/data/Shaders/simple.frag");
+	Shader shader = Shader("simple");
+
+	std::cout << std::endl;
+	{
+		GLuint i;
+		GLint count;
+
+		GLint size;
+		GLenum type;
+
+		const GLsizei bufSize = 16;
+		GLchar name[bufSize];
+		GLsizei length;
+
+		glGetProgramiv(shader.GetId(), GL_ACTIVE_ATTRIBUTES, &count);
+		std::cout << "Attribute count : " << count << std::endl;
+
+		for (i = 0; i < count; i++)
+		{
+			glGetActiveAttrib(shader.GetId(), i, bufSize, &length, &size, &type, name);
+			std::cout << "Attribute : " << i << " - Type : " << type << " - Name : " << name << std::endl;
+		}
+
+		std::cout << std::endl;
+
+		glGetProgramiv(shader.GetId(), GL_ACTIVE_UNIFORMS, &count);
+		std::cout << "Uniform count : " << count << std::endl;
+
+		for (i = 0; i < count; i++)
+		{
+			glGetActiveUniform(shader.GetId(), i, bufSize, &length, &size, &type, name);
+			std::cout << "Uniform : " << i << " - Type : " << type << " - Name : " << name << std::endl;
+		}
+	}
+
 	Mesh cubeMesh = Mesh::CreatePrimitive(Primitive::Cube);
 
 	srand(3);
@@ -80,6 +114,7 @@ int main()
 		renderer.SetMesh(&cubeMesh);
 		renderer.SetShader(&shader);
 	}
+
 	Entity& cameraEntity = scene.AddEntity();
 	cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
 	cameraEntity.AddComponent<Camera>();
