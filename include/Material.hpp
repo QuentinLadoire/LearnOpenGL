@@ -22,20 +22,6 @@ class Material
 	Shader* GetShader() const;
 	void SetShader(Shader* shader);
 
-	void SetVec4(std::string name, glm::vec4 value);
-	void SetMat4(std::string name, glm::mat4 value);
-
-	void Use();
-
-	void SaveFile();
-
-	private:
-	void ClearUniforms();
-	Json::String Serialize();
-
 	private:
 	Shader* m_shader = nullptr;
-
-	std::vector<UniformMat4> m_uniformsMat4{};
-	std::vector<UniformVec4> m_uniformsVec4{};
 };

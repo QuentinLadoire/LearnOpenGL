@@ -71,9 +71,6 @@ int main()
 	Shader shader = Shader("simple");
 	Mesh cubeMesh = Mesh::CreatePrimitive(Primitive::Cube);
 
-	Material mat;
-	mat.SetShader(&shader);
-
 	//Entity
 	{
 		for (int i = 0; i < 10; i++)
