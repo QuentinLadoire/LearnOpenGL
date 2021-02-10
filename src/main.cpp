@@ -20,6 +20,7 @@
 #include "Image.hpp"
 #include "Texture.hpp"
 #include "Mesh.hpp"
+#include "Material.hpp"
 
 #include "Transform.hpp"
 #include "MeshRenderer.hpp"
@@ -62,62 +63,35 @@ int main()
 	Window::Init(600, 600, "LearnOpenGL");
 	Window::SetClearColor(0.2f, 0.3f, 0.3f);
 
-	Scene& scene = SceneManager::LoadScene(std::make_unique<Scene>());
-
-	Shader shader = Shader("simple");
-
-	std::cout << std::endl;
-	{
-		GLuint i;
-		GLint count;
-
-		GLint size;
-		GLenum type;
-
-		const GLsizei bufSize = 16;
-		GLchar name[bufSize];
-		GLsizei length;
-
-		glGetProgramiv(shader.GetId(), GL_ACTIVE_ATTRIBUTES, &count);
-		std::cout << "Attribute count : " << count << std::endl;
-
-		for (i = 0; i < count; i++)
-		{
-			glGetActiveAttrib(shader.GetId(), i, bufSize, &length, &size, &type, name);
-			std::cout << "Attribute : " << i << " - Type : " << type << " - Name : " << name << std::endl;
-		}
-
-		std::cout << std::endl;
-
-		glGetProgramiv(shader.GetId(), GL_ACTIVE_UNIFORMS, &count);
-		std::cout << "Uniform count : " << count << std::endl;
-
-		for (i = 0; i < count; i++)
-		{
-			glGetActiveUniform(shader.GetId(), i, bufSize, &length, &size, &type, name);
-			std::cout << "Uniform : " << i << " - Type : " << type << " - Name : " << name << std::endl;
-		}
-	}
-
-	Mesh cubeMesh = Mesh::CreatePrimitive(Primitive::Cube);
-
 	srand(3);
 
-	for (int i = 0; i < 10; i++)
+	Scene& scene = SceneManager::LoadScene(std::make_unique<Scene>());
+
+	//Data
+	Shader shader = Shader("simple");
+	Mesh cubeMesh = Mesh::CreatePrimitive(Primitive::Cube);
+
+	Material mat;
+	mat.SetShader(&shader);
+
+	//Entity
 	{
-		Entity& entity = scene.AddEntity();
-		entity.GetTransform().SetPosition(glm::vec3((rand() % 5) - 2.5f, (rand() % 5) - 2.5f, (rand() % 5) - 2.5f));
+		for (int i = 0; i < 10; i++)
+		{
+			Entity& entity = scene.AddEntity();
+			entity.GetTransform().SetPosition(glm::vec3((rand() % 5) - 2.5f, (rand() % 5) - 2.5f, (rand() % 5) - 2.5f));
 
-		entity.AddComponent<Tmp>();
-		MeshRenderer& renderer = entity.AddComponent<MeshRenderer>();
-		renderer.SetColor(glm::vec4(1.0f, 0.5f, 0.3f, 1.0f));
-		renderer.SetMesh(&cubeMesh);
-		renderer.SetShader(&shader);
+			entity.AddComponent<Tmp>();
+			MeshRenderer& renderer = entity.AddComponent<MeshRenderer>();
+			renderer.SetColor(glm::vec4(1.0f, 0.5f, 0.3f, 1.0f));
+			renderer.SetMesh(&cubeMesh);
+			renderer.SetShader(&shader);
+		}
+
+		Entity& cameraEntity = scene.AddEntity();
+		cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
+		cameraEntity.AddComponent<Camera>();
 	}
-
-	Entity& cameraEntity = scene.AddEntity();
-	cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
-	cameraEntity.AddComponent<Camera>();
 
 	SceneManager::Start();
 

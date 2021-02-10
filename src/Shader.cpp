@@ -451,7 +451,15 @@ void Shader::SetMatrix4x3(const std::string& name, int count, bool transpose, co
 	glUniformMatrix4x3fv(glGetUniformLocation(m_id, name.c_str()), count, transpose, value);
 }
 
+const int Shader::GetUniformId(std::string& name) const
+{
+	return glGetUniformLocation(m_id, name.c_str());
+}
 const unsigned int Shader::GetId() const
 {
 	return m_id;
+}
+const std::string Shader::GetName() const
+{
+	return m_name;
 }

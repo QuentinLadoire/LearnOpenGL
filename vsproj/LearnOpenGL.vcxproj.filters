@@ -60,6 +60,9 @@
     <ClCompile Include="..\src\Script.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Uniform.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Window.hpp">
@@ -102,6 +105,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Script.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Uniform.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

@@ -108,6 +108,7 @@
     <ClCompile Include="..\src\std_image.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
     <ClCompile Include="..\src\Transform.cpp" />
+    <ClCompile Include="..\src\Uniform.cpp" />
     <ClCompile Include="..\src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +125,7 @@
     <ClInclude Include="..\include\Shader.hpp" />
     <ClInclude Include="..\include\Texture.hpp" />
     <ClInclude Include="..\include\Transform.hpp" />
+    <ClInclude Include="..\include\Uniform.hpp" />
     <ClInclude Include="..\include\Window.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -95,9 +95,11 @@ class Shader
 	void SetMatrix4x3(const int id, int count, bool transpose, const float* value);
 	void SetMatrix4x3(const std::string& name, int count, bool transpose, const float* value);
 
+	const int GetUniformId(std::string& name) const;
 	const unsigned int GetId() const;
+	const std::string GetName() const;
 
 	private:
 	unsigned int m_id = 0;
-	std::string m_name = "";
+	std::string m_name = "NoName";
 };
