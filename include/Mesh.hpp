@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Asset.hpp"
+
+#include <string>
 #include <memory>
 #include <type_traits>
 
@@ -15,10 +18,10 @@ enum class Primitive
 	Capsule
 };
 
-class Mesh
+class Mesh : public Asset
 {
 	public:
-	Mesh();
+	Mesh(const std::string& name);
 	Mesh(Mesh&& move) noexcept;
 	~Mesh();
 
@@ -32,8 +35,8 @@ class Mesh
 	static Mesh CreatePrimitive(Primitive primitive);
 
 	private:
-	static Mesh CreateCube();
 	static Mesh CreateQuad();
+	static Mesh CreateCube();
 	static Mesh CreatePlane();
 	static Mesh CreateSphere();
 	static Mesh CreateCylinder();

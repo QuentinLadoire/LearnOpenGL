@@ -63,6 +63,12 @@
     <ClCompile Include="..\src\Uniform.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Asset.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DataManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Window.hpp">
@@ -108,6 +114,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Uniform.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Asset.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\DataManager.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

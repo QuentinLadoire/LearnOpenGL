@@ -13,14 +13,12 @@
 
 
 #include "Window.hpp"
+#include "DataManager.hpp"
 #include "SceneManager.hpp"
 #include "Scene.hpp"
 
 #include "Shader.hpp"
-#include "Image.hpp"
-#include "Texture.hpp"
 #include "Mesh.hpp"
-#include "Material.hpp"
 
 #include "Transform.hpp"
 #include "MeshRenderer.hpp"
@@ -68,7 +66,7 @@ int main()
 	Scene& scene = SceneManager::LoadScene(std::make_unique<Scene>());
 
 	//Data
-	Shader shader = Shader("simple");
+	Shader& shader = DataManager::Find<Shader>("simple");
 	Mesh cubeMesh = Mesh::CreatePrimitive(Primitive::Cube);
 
 	//Entity

@@ -7,8 +7,12 @@
 
 const char* Shader::Path = "data/Shaders/";
 
-Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
+Shader::Shader(const std::string& name) :
+	Asset(name)
 {
+	const std::string& vertexPath = Path + name + ".vert";
+	const std::string& fragmentPath = Path + name + ".frag";
+
 	std::string vertexString;
 	std::string fragmentString;
 
@@ -84,11 +88,6 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 
 	glDeleteShader(vertexId);
 	glDeleteShader(fragmentId);
-}
-Shader::Shader(const std::string& name) :
-	Shader(Path + name + ".vert", Path + name + ".frag")
-{
-	m_name = name;
 }
 Shader::~Shader()
 {
@@ -458,8 +457,4 @@ const int Shader::GetUniformId(std::string& name) const
 const unsigned int Shader::GetId() const
 {
 	return m_id;
-}
-const std::string Shader::GetName() const
-{
-	return m_name;
 }

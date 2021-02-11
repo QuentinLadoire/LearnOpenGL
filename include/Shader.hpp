@@ -1,14 +1,13 @@
 #pragma once
 
+#include "Asset.hpp"
+
 #include <string>
 
-class Shader
+class Shader : public Asset
 {
 	public:
 	static const char* Path;
-
-	private:
-	Shader(const std::string& vertexPath, const std::string& fragmentPath);
 
 	public:
 	Shader(const std::string& name);
@@ -97,9 +96,7 @@ class Shader
 
 	const int GetUniformId(std::string& name) const;
 	const unsigned int GetId() const;
-	const std::string GetName() const;
 
 	private:
 	unsigned int m_id = 0;
-	std::string m_name = "NoName";
 };

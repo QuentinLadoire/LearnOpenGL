@@ -6,13 +6,17 @@
 #include <glad/glad.h>
 #include <glfw-3-3-2/GLFW/glfw3.h>
 
-Mesh::Mesh()
+#include "DataManager.hpp"
+
+Mesh::Mesh(const std::string& name) :
+	Asset(name)
 {
 	glGenVertexArrays(1, &m_VAO);
 	glGenBuffers(1, &m_VBO);
 	glGenBuffers(1, &m_EBO);
 }
-Mesh::Mesh(Mesh&& move) noexcept
+Mesh::Mesh(Mesh&& move) noexcept :
+	Asset(std::move(move))
 {
 	m_verticesCount = move.m_verticesCount;
 	m_trianglesCount = move.m_trianglesCount;
@@ -70,7 +74,7 @@ void Mesh::UpdateBufferGPU()
 
 Mesh Mesh::CreateQuad()
 {
-	Mesh quad{};
+	Mesh quad = Mesh("Quad");
 
 	quad.m_verticesCount = 4 * 3;
 	quad.m_trianglesCount = 6;
@@ -97,7 +101,7 @@ Mesh Mesh::CreateQuad()
 }
 Mesh Mesh::CreateCube()
 {
-	Mesh cube{};
+	Mesh cube = Mesh("Cube");
 	
 	cube.m_verticesCount = 8 * 3;
 	cube.m_trianglesCount = 36;
@@ -169,19 +173,19 @@ Mesh Mesh::CreateCube()
 }
 Mesh Mesh::CreatePlane()
 {
-	return Mesh();
+	return Mesh("Plane");
 }
 Mesh Mesh::CreateSphere()
 {
-	return Mesh();
+	return Mesh("Sphere");
 }
 Mesh Mesh::CreateCylinder()
 {
-	return Mesh();
+	return Mesh("Cylinder");
 }
 Mesh Mesh::CreateCapsule()
 {
-	return Mesh();
+	return Mesh("Capsule");
 }
 Mesh Mesh::CreatePrimitive(Primitive primitive)
 {
@@ -201,5 +205,5 @@ Mesh Mesh::CreatePrimitive(Primitive primitive)
 			return CreateCapsule();
 	}
 
-	return Mesh();
+	return CreateCube(); //never happen
 }
