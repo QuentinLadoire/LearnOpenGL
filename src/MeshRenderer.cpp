@@ -47,11 +47,12 @@ void MeshRenderer::Draw()
 	{
 		m_shader->Use();
 
-		m_shader->Set4Float("albedo", m_color.x, m_color.y, m_color.z, m_color.w);
-
 		m_shader->SetMatrix4("model", 1, false, glm::value_ptr(GetEntity().GetComponent<Transform>()->GetLocalToWorldMatrix()));
 		m_shader->SetMatrix4("view", 1, false, glm::value_ptr(Camera::GetMainCamera()->GetViewMatrix()));
 		m_shader->SetMatrix4("projection", 1, false, glm::value_ptr(Camera::GetMainCamera()->GetProjectionMatrix()));
+
+		m_shader->Set3Float("objectColor", m_color.x, m_color.y, m_color.z);
+		m_shader->Set3Float("lightColor", 1.0f, 1.0f, 1.0f);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -60,7 +61,7 @@ void MeshRenderer::Draw()
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-		m_shader->Set4Float("albedo", 0.0f, 0.0f, 0.0f, 1.0f);
+		m_shader->Set3Float("objectColor", 0.0f, 0.0f, 0.0f);
 		
 		m_shader->SetMatrix4("model", 1, false, glm::value_ptr(glm::scale(GetTransform()->GetLocalToWorldMatrix(), glm::vec3(1.01f, 1.01f, 1.01f))));
 		glDrawElements(GL_TRIANGLES, m_mesh->GetTrianglesCount(), GL_UNSIGNED_INT, 0);

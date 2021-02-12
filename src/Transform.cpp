@@ -28,27 +28,27 @@ const glm::vec3 Transform::GetEulerAngle() const
 
 const glm::vec3 Transform::GetForward() const 
 {
-	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, 1.0f, 1.0f);
+	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
 }
 const glm::vec3 Transform::GetBackward() const
 {
-	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f);
+	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f);
 }
 const glm::vec3 Transform::GetRight() const
 {
-	return GetLocalToWorldMatrix() * glm::vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	return GetLocalToWorldMatrix() * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
 }
 const glm::vec3 Transform::GetLeft() const
 {
-	return GetLocalToWorldMatrix() * glm::vec4(-1.0f, 0.0f, 0.0f, 1.0f);
+	return GetLocalToWorldMatrix() * glm::vec4(-1.0f, 0.0f, 0.0f, 0.0f);
 }
 const glm::vec3 Transform::GetUp() const
 {
-	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+	return GetLocalToWorldMatrix() * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
 }
 const glm::vec3 Transform::GetDown() const
 {
-	return GetLocalToWorldMatrix() * glm::vec4(0.0f, -1.0f, 0.0f, 1.0f);
+	return GetLocalToWorldMatrix() * glm::vec4(0.0f, -1.0f, 0.0f, 0.0f);
 }
 
 void Transform::SetPosition(glm::vec3 position)
@@ -79,7 +79,7 @@ const glm::mat4 Transform::GetLocalToWorldMatrix() const
 	glm::mat4 rotation = glm::mat4_cast(m_rotation);
 	glm::mat4 scale = glm::scale(identity, m_localScale);
 
-	return translate * rotation * scale;
+	return rotation * translate * scale;
 }
 
 std::string Transform::ToString()

@@ -18,6 +18,8 @@ class DataManager
 	static Asset& Get(const std::string& name);
 	static bool Exist(const std::string& name);
 
+	DataManager() = default;
+
 	private:
 	std::unordered_map<std::string, std::unique_ptr<Asset>> m_assets{};
 

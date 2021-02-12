@@ -151,6 +151,9 @@ class Window
 	static void Close();
 
 	private:
+	Window() = default;
+
+	private:
 	struct GLFWwindow* glfwWindow = nullptr;
 	struct Color
 	{

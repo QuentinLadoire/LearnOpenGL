@@ -1,10 +1,11 @@
 #version 330 core
 
-in vec4 Albedo;
-
 out vec4 FragColor;
+
+uniform vec3 objectColor;
+uniform vec3 lightColor;
 
 void main()
 {
-	FragColor = Albedo;
+	FragColor = vec4(lightColor * objectColor, 1.0f);
 }
