@@ -118,7 +118,7 @@ int main()
 		{
 			Entity& entity = scene.AddEntity();
 			//entity.GetTransform().SetPosition(glm::vec3((rand() % 5) - 2.5f, (rand() % 5) - 2.5f, (rand() % 5) - 2.5f));
-			entity.AddComponent<Tmp>();
+			//entity.AddComponent<Tmp>();
 			MeshRenderer& renderer = entity.AddComponent<MeshRenderer>();
 			renderer.SetColor(glm::vec4(1.0f, 0.5f, 0.3f, 1.0f));
 			renderer.SetMesh(&cubeMesh);

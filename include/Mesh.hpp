@@ -29,6 +29,7 @@ class Mesh : public Asset
 	const unsigned int GetVerticesCount() const;
 	const unsigned int GetTrianglesCount() const;
 	const unsigned int GetUvCount() const;
+	const unsigned int GetNormalsCount() const;
 
 	void UpdateBufferGPU();
 
@@ -46,10 +47,12 @@ class Mesh : public Asset
 	std::unique_ptr<float[]> m_vertices;
 	std::unique_ptr<unsigned int[]> m_triangles;
 	std::unique_ptr<float[]> m_uv;
+	std::unique_ptr<float[]> m_normals;
 
 	unsigned int m_verticesCount = 0;
 	unsigned int m_trianglesCount = 0;
 	unsigned int m_uvCount = 0;
+	unsigned int m_normalsCount = 0;
 
 	unsigned int m_VAO = 0;
 	unsigned int m_VBO = 0;
