@@ -70,20 +70,65 @@ class Tmp2 : public Script
 		glm::vec3 direction = glm::zero<glm::vec3>();
 
 		if (Window::IsKeyPress(KeyCode::W))
-			direction -= GetTransform()->GetForward() * glm::vec3(1.0f, 1.0f, -1.0f);
+			direction += glm::vec3(0.0f, 0.0f, 1.0f);
 		if (Window::IsKeyPress(KeyCode::S))
-			direction -= GetTransform()->GetBackward() * glm::vec3(1.0f, 1.0f, -1.0f);
+			direction += glm::vec3(0.0f, 0.0f, -1.0f);
 		if (Window::IsKeyPress(KeyCode::D))
-			direction += GetTransform()->GetRight() * glm::vec3(-1.0f, 1.0f, 1.0f);
+			direction += glm::vec3(-1.0f, 0.0f, 0.0f);
 		if (Window::IsKeyPress(KeyCode::A))
-			direction += GetTransform()->GetLeft() * glm::vec3(-1.0f, 1.0f, 1.0f);
+			direction += glm::vec3(1.0f, 0.0f, 0.0f);
 		if (Window::IsKeyPress(KeyCode::Space))
-			direction += GetTransform()->GetUp() * glm::vec3(1.0f, -1.0f, 1.0f);
+			direction += glm::vec3(0.0f, 1.0f, 0.0f);
 		if (Window::IsKeyPress(KeyCode::LeftShift))
-			direction += GetTransform()->GetDown() * glm::vec3(1.0f, -1.0f, 1.0f);
+			direction += glm::vec3(0.0f, -1.0f, 0.0f);
 
 		if (direction != glm::zero<glm::vec3>())
 			direction = glm::normalize(direction);
+
+		//std::cout << GetTransform()->GetPosition().x << " - " << GetTransform()->GetPosition().y << " - " << GetTransform()->GetPosition().z << std::endl;
+
+		GetTransform()->SetPosition(GetTransform()->GetPosition() + (direction * 0.1f));
+
+		if (Window::IsKeyPress(KeyCode::Q))
+			angle -= 0.5f;
+		if (Window::IsKeyPress(KeyCode::E))
+			angle += 0.5f;
+
+		GetTransform()->SetEulerAngle(glm::vec3(0.0f, angle, 0.0f));
+	}
+
+	private:
+	float angle = 0.0f;
+};
+class Tmp3 : public Script
+{
+	public:
+	Tmp3(Entity& entity) :
+		Script(entity)
+	{}
+	virtual void Update() override
+	{
+		Script::Update();
+
+		glm::vec3 direction = glm::zero<glm::vec3>();
+
+		if (Window::IsKeyPress(KeyCode::I))
+			direction += glm::vec3(0.0f, 0.0f, 1.0f);
+		if (Window::IsKeyPress(KeyCode::K))
+			direction += glm::vec3(0.0f, 0.0f, -1.0f);
+		if (Window::IsKeyPress(KeyCode::L))
+			direction += glm::vec3(-1.0f, 0.0f, 0.0f);
+		if (Window::IsKeyPress(KeyCode::J))
+			direction += glm::vec3(1.0f, 0.0f, 0.0f);
+		if (Window::IsKeyPress(KeyCode::RightAlt))
+			direction += glm::vec3(0.0f, 1.0f, 0.0f);
+		if (Window::IsKeyPress(KeyCode::RightShift))
+			direction += glm::vec3(0.0f, -1.0f, 0.0f);
+
+		if (direction != glm::zero<glm::vec3>())
+			direction = glm::normalize(direction);
+
+		//std::cout << GetTransform()->GetPosition().x << " - " << GetTransform()->GetPosition().y << " - " << GetTransform()->GetPosition().z << std::endl;
 
 		GetTransform()->SetPosition(GetTransform()->GetPosition() + (direction * 0.1f));
 
@@ -117,8 +162,9 @@ int main()
 		for (int i = 0; i < 1; i++)
 		{
 			Entity& entity = scene.AddEntity();
+			entity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 			//entity.GetTransform().SetPosition(glm::vec3((rand() % 5) - 2.5f, (rand() % 5) - 2.5f, (rand() % 5) - 2.5f));
-			//entity.AddComponent<Tmp>();
+			//entity.AddComponent<Tmp2>();
 			MeshRenderer& renderer = entity.AddComponent<MeshRenderer>();
 			renderer.SetColor(glm::vec4(1.0f, 0.5f, 0.3f, 1.0f));
 			renderer.SetMesh(&cubeMesh);
@@ -126,7 +172,7 @@ int main()
 		}
 
 		Entity& cameraEntity = scene.AddEntity();
-		cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -10.0f));
+		cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
 		cameraEntity.AddComponent<Camera>();
 		cameraEntity.AddComponent<Tmp2>();
 	}

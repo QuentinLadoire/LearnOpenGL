@@ -20,11 +20,8 @@ class Transform : public Component
 	const glm::vec3 GetEulerAngle() const;
 
 	const glm::vec3 GetForward() const;
-	const glm::vec3 GetBackward() const;
 	const glm::vec3 GetRight() const;
-	const glm::vec3 GetLeft() const;
 	const glm::vec3 GetUp() const;
-	const glm::vec3 GetDown() const;
 
 	void SetPosition(glm::vec3 position);
 	void SetRotation(glm::quat rotation);
