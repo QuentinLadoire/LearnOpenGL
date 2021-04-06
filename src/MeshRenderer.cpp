@@ -9,6 +9,7 @@
 #include "Shader.hpp"
 #include "Transform.hpp"
 #include "Camera.hpp"
+#include "Light.hpp"
 #include "Entity.hpp"
 
 MeshRenderer::MeshRenderer(Entity& entity) :
@@ -52,10 +53,14 @@ void MeshRenderer::Draw()
 		m_shader->SetMatrix4("projection", 1, false, glm::value_ptr(Camera::GetMainCamera()->GetProjectionMatrix()));
 
 		m_shader->Set3Float("objectColor", m_color.x, m_color.y, m_color.z);
-		m_shader->Set3Float("lightColor", 1.0f, 1.0f, 1.0f);
-		m_shader->Set3Float("lightPos", 3.0f, 3.0f, 3.0f);
-		auto tmp = Camera::GetMainCamera()->GetTransform()->GetPosition();
-		m_shader->Set3Float("viewPos", tmp.x, tmp.y, -tmp.z);
+
+		auto color = Light::GetMainLight()->GetColor();
+		m_shader->Set3Float("lightColor", color.x, color.y, color.z);
+		auto tmp = Light::GetMainLight()->GetTransform()->GetPosition();
+		m_shader->Set3Float("lightPos", tmp.x, tmp.y, tmp.z);
+
+		tmp = Camera::GetMainCamera()->GetTransform()->GetPosition();
+		m_shader->Set3Float("viewPos", tmp.x, tmp.y, tmp.z);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 

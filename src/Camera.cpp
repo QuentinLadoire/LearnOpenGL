@@ -35,10 +35,6 @@ const glm::mat4 Camera::GetProjectionMatrix()
 
 const glm::mat4 Camera::GetViewMatrix()
 {
-	auto transform = GetTransform();
-
-	//auto mat = glm::lookAtRH(transform->GetPosition(), transform->GetPosition() + transform->GetForward(), transform->GetUp());
-	//mat = glm::scale(mat, glm::vec3(-1.0f, 1.0f, 1.0f));
-
-	return transform->GetLocalToWorldMatrix();
+	auto position = GetTransform()->GetPosition();
+	return glm::translate(glm::mat4(1.0f), glm::vec3(-position.x, -position.y, position.z));
 }

@@ -99,6 +99,7 @@
     <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\glad.c" />
     <ClCompile Include="..\src\Image.cpp" />
+    <ClCompile Include="..\src\Light.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Material.cpp" />
     <ClCompile Include="..\src\Mesh.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="..\include\DataManager.hpp" />
     <ClInclude Include="..\include\Entity.hpp" />
     <ClInclude Include="..\include\Image.hpp" />
+    <ClInclude Include="..\include\Light.hpp" />
     <ClInclude Include="..\include\Material.hpp" />
     <ClInclude Include="..\include\Mesh.hpp" />
     <ClInclude Include="..\include\MeshRenderer.hpp" />

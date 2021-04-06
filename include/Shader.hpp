@@ -4,7 +4,7 @@
 
 #include <string>
 
-class Shader : public Asset
+class Shader
 {
 	public:
 	static const char* Path;

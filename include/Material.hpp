@@ -15,7 +15,7 @@
 class Shader;
 class Texture;
 
-class Material : public Asset
+class Material
 {
 	public:
 	static const char* Path;

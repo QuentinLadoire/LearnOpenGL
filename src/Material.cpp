@@ -8,8 +8,7 @@
 
 const char* Material::Path = "data/Materials/";
 
-Material::Material(const std::string& name) :
-	Asset(name)
+Material::Material(const std::string& name)
 {}
 
 Shader* Material::GetShader() const

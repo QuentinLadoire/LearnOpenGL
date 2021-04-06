@@ -24,6 +24,7 @@
 #include "MeshRenderer.hpp"
 #include "Camera.hpp"
 #include "Script.hpp"
+#include "Light.hpp"
 
 #include "Entity.hpp"
 
@@ -74,9 +75,9 @@ class Tmp2 : public Script
 		if (Window::IsKeyPress(KeyCode::S))
 			direction += glm::vec3(0.0f, 0.0f, -1.0f);
 		if (Window::IsKeyPress(KeyCode::D))
-			direction += glm::vec3(-1.0f, 0.0f, 0.0f);
-		if (Window::IsKeyPress(KeyCode::A))
 			direction += glm::vec3(1.0f, 0.0f, 0.0f);
+		if (Window::IsKeyPress(KeyCode::A))
+			direction += glm::vec3(-1.0f, 0.0f, 0.0f);
 		if (Window::IsKeyPress(KeyCode::Space))
 			direction += glm::vec3(0.0f, 1.0f, 0.0f);
 		if (Window::IsKeyPress(KeyCode::LeftShift))
@@ -175,6 +176,11 @@ int main()
 		cameraEntity.GetComponent<Transform>()->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
 		cameraEntity.AddComponent<Camera>();
 		cameraEntity.AddComponent<Tmp2>();
+
+		Entity& lightEntity = scene.AddEntity();
+		lightEntity.GetTransform().SetPosition(glm::vec3(0.0f, 3.0f, 3.0f));
+		lightEntity.AddComponent<Light>();
+		lightEntity.AddComponent<Tmp3>();
 	}
 
 	SceneManager::Start();

@@ -18,7 +18,7 @@ enum class Primitive
 	Capsule
 };
 
-class Mesh : public Asset
+class Mesh
 {
 	public:
 	Mesh(const std::string& name);

@@ -8,15 +8,13 @@
 
 #include "DataManager.hpp"
 
-Mesh::Mesh(const std::string& name) :
-	Asset(name)
+Mesh::Mesh(const std::string& name)
 {
 	glGenVertexArrays(1, &m_VAO);
 	glGenBuffers(1, &m_VBO);
 	glGenBuffers(1, &m_EBO);
 }
-Mesh::Mesh(Mesh&& move) noexcept :
-	Asset(std::move(move))
+Mesh::Mesh(Mesh&& move) noexcept
 {
 	m_verticesCount = move.m_verticesCount;
 	m_trianglesCount = move.m_trianglesCount;

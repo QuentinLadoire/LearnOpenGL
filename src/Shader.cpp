@@ -7,8 +7,7 @@
 
 const char* Shader::Path = "data/Shaders/";
 
-Shader::Shader(const std::string& name) :
-	Asset(name)
+Shader::Shader(const std::string& name)
 {
 	const std::string& vertexPath = Path + name + ".vert";
 	const std::string& fragmentPath = Path + name + ".frag";
